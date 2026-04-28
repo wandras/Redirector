@@ -1,4 +1,3 @@
-
 window.wa = window.wa || {};
 
 wa.Redirect = class Redirect {
@@ -115,10 +114,10 @@ wa.Redirect = class Redirect {
 			(this.#matchingParams.length === 0 || this.checkParams(this.#matchingParams)) &&
 			(this.#blockingParams.length === 0 || !this.checkParams(this.#blockingParams))
 		) {
-			const fullDest = this.#target + (this.#persistParams ? location.search : '');
+			const fullTarget = this.#target + (this.#persistParams ? location.search : '');
 			
-			console.log('Redirector: redirecting to', fullDest);
-			window.location.href = fullDest;
+			console.log('Redirect: requesting', fullTarget);
+			window.location.href = fullTarget;
 		}
 	}
 	// Methods for internal operations, public to enable code conditions check
@@ -196,7 +195,7 @@ wa.Redirect = class Redirect {
 		return !isNaN(d.getTime());
 	}
 	#isPlainObject(value) {
-		// CHeck if the given value is an object literal
+		// Check if the given value is an object literal
 		return value !== null && typeof value === 'object' && !Array.isArray(value);
 	}
 }
@@ -210,7 +209,7 @@ redirect
 	.until('2026-06-30T23:59:00')
 	.forDeviceType('mobile')
 	.whenParams([{ utm_campaign: 'april2026' }, { utm_source: 'google' }, { utm_medium: 'cpc' }])
-	.unlessParams({ 'wp': 'true' })
+	.unlessParams({ wp: 'true' })
 	.keepParams(); // transfer params in the target URL
 
 // Execute the redirect, if conditions are met:
@@ -223,5 +222,3 @@ redirect.withParams([
 redirect.withParams([
 	{ utm_source: 'google' }, { utm_medium: 'cpc' } // evaluated in OR
 ]);
-
-
