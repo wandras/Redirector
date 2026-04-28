@@ -112,8 +112,8 @@ wa.Redirect = class Redirect {
 			this.checkUrl() &&
 			this.checkTime() &&
 			this.checkDeviceType() &&
-			this.checkParams(this.#matchingParams) &&
-			!this.checkParams(this.#blockingParams)
+			(this.#matchingParams.length === 0 || this.checkParams(this.#matchingParams)) &&
+			(this.#blockingParams.length === 0 || !this.checkParams(this.#blockingParams))
 		) {
 			const fullDest = this.#target + (this.#persistParams ? location.search : '');
 			
@@ -158,10 +158,6 @@ wa.Redirect = class Redirect {
 		// - A single object: all key/value pairs must match (AND).
 		// - An array of objects: each object is a group evaluated in AND, groups are evaluated in OR.
 		// Returns true if at least one group matches.
-		if (!params || (Array.isArray(params) && params.length === 0)) {
-			return true;
-		}
-		
 		const qs = new URLSearchParams(location.search);
 		
 		if (!this.#isPlainObject(params) && !Array.isArray(params)) {
