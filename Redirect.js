@@ -209,7 +209,7 @@ redirect
 	.until('2026-06-30T23:59:00')
 	.forDeviceType('mobile')
 	.whenParams([{ utm_campaign: 'april2026' }, { utm_source: 'google' }, { utm_medium: 'cpc' }])
-	.unlessParams({ wp: 'true' })
+	.unlessParams({ blockRedirection: 'true' })
 	.keepParams(); // transfer params in the target URL
 
 // Execute the redirect, if conditions are met:
