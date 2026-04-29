@@ -12,7 +12,7 @@ wa.Redirect = class Redirect {
  * - Flexible parameter matching logic:
  *      - Each object represents a group of conditions evaluated in AND
  *      - Multiple objects are evaluated in OR
- *      - Supports both enabling (withParams) and blocking (unlessParams) rules
+ *      - Supports both enabling (whenParams) and blocking (unlessParams) rules
  *
  * Evaluation flow:
  * - Source URL match
@@ -209,16 +209,17 @@ redirect
 	.until('2026-06-30T23:59:00')
 	.forDeviceType('mobile')
 	.whenParams([{ utm_campaign: 'april2026' }, { utm_source: 'google' }, { utm_medium: 'cpc' }])
-	.unlessParams({ blockRedirection: 'true' })
+	.unlessParams({ block: 'true' })
 	.keepParams(); // transfer params in the target URL
 
 // Execute the redirect, if conditions are met:
 redirect.run();
 
 // whenParams() and unlessParams() methods work in a DSL logic:
-redirect.withParams([
+redirect.whenParams([
 	{ utm_source: 'google', utm_medium: 'cpc' } // grouped in AND
 ]);
-redirect.withParams([
+redirect.whenParams([
 	{ utm_source: 'google' }, { utm_medium: 'cpc' } // evaluated in OR
 ]);
+
